@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aether Tasks | Premium Interactive Task Manager</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Do Tasks is a premium, client-side glassmorphic task manager designed for seamless productivity. Master your day with priorities, subtask tracking, and local storage.">
+  <meta name="keywords" content="Tasks, Todo List, Planner, Productivity, Glassmorphism, Spatial UI, LocalStorage">
+  <meta name="author" content="ZEO Team">
+
+  <!-- Typography & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <!-- Skip Navigation for Accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Animated Mesh Background Elements -->
+  <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-3" aria-hidden="true"></div>
+
+  <!-- Layout Container -->
+  <div class="app-container">
+
+    <!-- Header Landmark -->
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="logo-title">Do Tasks</h1>
+          <p class="logo-tagline">Elevate your daily rhythm</p>
+        </div>
+      </div>
+
+      <!-- Real-time Clock Widget -->
+      <div class="date-widget" aria-label="Current Date and Time">
+        <span id="current-date" class="date-text">Friday, July 17</span>
+        <span id="current-time" class="time-text">08:35 PM</span>
+      </div>
+
+      <!-- Theme Switcher Button -->
+      <button class="theme-toggle-btn" id="theme-toggle" aria-label="Switch Theme">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+
+      <!-- Quick Summary Metric Wheel -->
+      <div class="summary-wheel" aria-label="Task progress summary">
+        <div class="wheel-svg-container">
+          <svg class="progress-ring" width="56" height="56">
+            <circle class="progress-ring-bg" stroke="rgba(255, 255, 255, 0.05)" stroke-width="4" fill="transparent"
+              r="24" cx="28" cy="28" />
+            <circle id="summary-ring-fill" class="progress-ring-fill" stroke="url(#cyan-magenta-grad)"
+              stroke-dasharray="150.79" stroke-dashoffset="150.79" stroke-linecap="round" stroke-width="4"
+              fill="transparent" r="24" cx="28" cy="28" />
+            <defs>
+              <linearGradient id="cyan-magenta-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00f2fe" />
+                <stop offset="100%" stop-color="#4facfe" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <span id="summary-percentage" class="wheel-text">0%</span>
+        </div>
+        <div class="wheel-labels">
+          <span class="wheel-fraction" id="summary-fraction">0/0 Tasks</span>
+          <span class="wheel-sub">completed</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main id="main-content" class="main-layout" tabindex="-1">
+
+      <!-- LEFT COLUMN: Input Form Controls -->
+      <section class="task-form-panel glass-panel" aria-labelledby="form-heading">
+        <h2 id="form-heading" class="panel-title">
+          <span>Create Task</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
+            stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+        </h2>
+
+        <form id="task-creation-form" class="task-form">
+          <!-- Task Title Input -->
+          <div class="form-group">
+            <label for="task-title" class="form-label">Task Name <span class="required"
+                aria-hidden="true">*</span></label>
+            <input type="text" id="task-title" class="form-input" placeholder="e.g. Design wireframes" required
+              aria-required="true">
+          </div>
+
+          <!-- Task Description Input -->
+          <div class="form-group">
+            <label for="task-desc" class="form-label">Description (Optional)</label>
+            <textarea id="task-desc" class="form-input form-textarea" placeholder="Detail the core objectives..."
+              rows="3"></textarea>
+          </div>
+
+          <!-- Metadata Grid (Priority, Category, Due Date) -->
+          <div class="form-grid">
+            <!-- Category Selector -->
+            <div class="form-group">
+              <label for="task-category" class="form-label">Category</label>
+              <div class="select-wrapper">
+                <select id="task-category" class="form-input form-select">
+                  <option value="Work">💼 Work</option>
+                  <option value="Personal">🏠 Personal</option>
+                  <option value="Shopping">🛒 Shopping</option>
+                  <option value="Health">🍎 Health</option>
+                  <option value="Finance">💳 Finance</option>
+                  <option value="Ideas">💡 Ideas</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Priority Selector -->
+            <div class="form-group">
+              <label for="task-priority" class="form-label">Priority</label>
+              <div class="select-wrapper">
+                <select id="task-priority" class="form-input form-select">
+                  <option value="low">🟢 Low Priority</option>
+                  <option value="medium" selected>🟡 Medium Priority</option>
+                  <option value="high">🔴 High Priority</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Due Date Input -->
+            <div class="form-group full-width-mobile">
+              <label for="task-due-date" class="form-label">Due Date</label>
+              <input type="date" id="task-due-date" class="form-input form-date">
+            </div>
+
+            <!-- Due Time Input -->
+            <div class="form-group full-width-mobile">
+              <label for="task-due-time" class="form-label">Due Time</label>
+              <input type="time" id="task-due-time" class="form-input form-time">
+            </div>
+          </div>
+
+          <!-- Subtasks Builder Section -->
+          <div class="form-group subtasks-builder-box">
+            <label class="form-label">Subtasks Checklist</label>
+            <div class="subtask-input-row">
+              <input type="text" id="temp-subtask-input" class="form-input" placeholder="Add a subtask step...">
+              <button type="button" id="btn-add-temp-subtask" class="btn btn-secondary-icon"
+                aria-label="Add subtask step">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+                  stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+              </button>
+            </div>
+            <!-- Dynamic List of Temp Subtasks to be Created -->
+            <ul id="temp-subtasks-list" class="temp-subtasks-list" aria-live="polite">
+              <!-- Inline items added here -->
+            </ul>
+          </div>
+
+          <!-- Add Task Button -->
+          <button type="submit" id="btn-submit-task" class="btn btn-primary btn-block">
+            <span class="btn-text">Add Task to Board</span>
+            <span class="btn-glow"></span>
+          </button>
+        </form>
+      </section>
+
+      <!-- RIGHT COLUMN: Filters and Feed -->
+      <section class="task-feed-panel" aria-labelledby="feed-heading">
+        <h2 id="feed-heading" class="sr-only">Task Board and Filters</h2>
+
+        <!-- Interactive Filters Bar -->
+        <div class="filters-bar glass-panel">
+          <!-- Text Search Box -->
+          <div class="search-box">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+              stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="text" id="search-input" class="search-input" placeholder="Search tasks...">
+            <button id="btn-clear-search" class="clear-search-btn" aria-label="Clear search text"
+              style="display: none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor"
+                stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Status Filters (Tabs) -->
+          <div class="status-filters" role="tablist" aria-label="Filter tasks by completion status">
+            <button id="filter-all" class="filter-tab active" role="tab" aria-selected="true" aria-controls="task-list"
+              data-filter="all">All</button>
+            <button id="filter-active" class="filter-tab" role="tab" aria-selected="false" aria-controls="task-list"
+              data-filter="active">Active</button>
+            <button id="filter-completed" class="filter-tab" role="tab" aria-selected="false" aria-controls="task-list"
+              data-filter="completed">Completed</button>
+          </div>
+
+          <!-- Sort Select -->
+          <div class="sort-box">
+            <label for="sort-select" class="sr-only">Sort Tasks</label>
+            <div class="select-wrapper">
+              <select id="sort-select" class="form-input form-select sort-select">
+                <option value="created-desc">📅 Newest First</option>
+                <option value="created-asc">📅 Oldest First</option>
+                <option value="due-asc">⏳ Due Date: Soonest</option>
+                <option value="due-desc">⏳ Due Date: Latest</option>
+                <option value="priority-desc">⚠️ Priority: High to Low</option>
+                <option value="alphabetical-asc">🔤 Title: A-Z</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Pill Selector Bar -->
+        <div class="category-filters-container" aria-label="Filter by task categories">
+          <span class="filter-label">Categories:</span>
+          <div id="category-pills" class="category-pills">
+            <!-- Dynamic Category Pills Rendered here -->
+          </div>
+        </div>
+
+        <!-- Tasks Feed Grid/List -->
+        <div id="task-list" class="task-list-feed" role="tabpanel" aria-labelledby="filter-all">
+          <!-- Empty State (Fallback UI) -->
+          <div class="empty-state" id="empty-state-placeholder">
+            <div class="empty-state-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <h3 class="empty-state-title">No Tasks Found</h3>
+            <p class="empty-state-desc">Create a task to get started, or change your filter selection.</p>
+          </div>
+        </div>
+
+        <!-- Quick Summary Actions -->
+        <div class="feed-footer-actions glass-panel">
+          <div class="stats-overview">
+            <span class="stats-pill"><strong id="stats-total">0</strong> Total</span>
+            <span class="stats-pill"><strong id="stats-active">0</strong> Active</span>
+            <span class="stats-pill"><strong id="stats-completed">0</strong> Completed</span>
+          </div>
+          <button id="btn-clear-completed" class="btn btn-danger-link"
+            aria-label="Clear all completed tasks from board">
+            <span>Clear Completed</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor"
+              stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- EDIT DIALOG MODAL (Premium Floating Overlay) -->
+  <dialog id="edit-task-modal" class="edit-dialog glass-panel" aria-labelledby="modal-heading">
+    <div class="dialog-content">
+      <div class="dialog-header">
+        <h2 id="modal-heading" class="dialog-title">Edit Task</h2>
+        <button id="btn-close-modal" class="btn-close-icon" aria-label="Close editing modal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+            stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <form id="edit-task-form" class="task-form dialog-form">
+        <!-- Hidden Task ID Reference -->
+        <input type="hidden" id="edit-task-id">
+
+        <!-- Title -->
+        <div class="form-group">
+          <label for="edit-task-title" class="form-label">Task Name</label>
+          <input type="text" id="edit-task-title" class="form-input" required aria-required="true">
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="edit-task-desc" class="form-label">Description</label>
+          <textarea id="edit-task-desc" class="form-input form-textarea" rows="3"></textarea>
+        </div>
+
+        <div class="form-grid">
+          <!-- Category -->
+          <div class="form-group">
+            <label for="edit-task-category" class="form-label">Category</label>
+            <div class="select-wrapper">
+              <select id="edit-task-category" class="form-input form-select">
+                <option value="Work">💼 Work</option>
+                <option value="Personal">🏠 Personal</option>
+                <option value="Shopping">🛒 Shopping</option>
+                <option value="Health">🍎 Health</option>
+                <option value="Finance">💳 Finance</option>
+                <option value="Ideas">💡 Ideas</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Priority -->
+          <div class="form-group">
+            <label for="edit-task-priority" class="form-label">Priority</label>
+            <div class="select-wrapper">
+              <select id="edit-task-priority" class="form-input form-select">
+                <option value="low">🟢 Low Priority</option>
+                <option value="medium">🟡 Medium Priority</option>
+                <option value="high">🔴 High Priority</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Due Date -->
+          <div class="form-group full-width-mobile">
+            <label for="edit-task-due-date" class="form-label">Due Date</label>
+            <input type="date" id="edit-task-due-date" class="form-input form-date">
+          </div>
+
+          <!-- Due Time -->
+          <div class="form-group full-width-mobile">
+            <label for="edit-task-due-time" class="form-label">Due Time</label>
+            <input type="time" id="edit-task-due-time" class="form-input form-time">
+          </div>
+        </div>
+
+        <div class="dialog-actions">
+          <button type="button" id="btn-cancel-edit" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <span>Save Changes</span>
+            <span class="btn-glow"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- TOAST NOTIFICATION CONTAINER (Aria-live alert) -->
+  <div id="toast-container" class="toast-container" aria-live="assertive" aria-atomic="true">
+    <!-- Inline undo/info toasts will inject here dynamically -->
+  </div>
+
+  <!-- Core JavaScript -->
+  <script src="js/app.js"></script>
+</body>
+
+</html>
